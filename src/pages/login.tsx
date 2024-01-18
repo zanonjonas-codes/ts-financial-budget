@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import * as React from 'react'
 import '../app/globals.css'
-import Image from "next/legacy/image"
+import Image from 'next/image'
 import { FcGoogle } from 'react-icons/fc'
 import { IoLogoGithub } from 'react-icons/io'
 
@@ -9,33 +9,19 @@ export interface ILoginProps {}
 
 export function Login(props: ILoginProps) {
   return (
-    // <section className="grid md:grid-cols-2 grid-cols-1 justify-center items-center h-screen">
-    //   <img
-    //     src="https://media.macphun.com/img/uploads/customer/how-to/608/15542038745ca344e267fb80.28757312.jpg"
-    //     alt="Sample image"
-    //     className="object-cover w-full h-full hidden md:block"
-    //   />
-
-    //   <div className="grid grid-cols-1 items-center justify-center">
-    //     <div className="grid gap-3">
-    //       <input placeholder="Email" type="text" className=""></input>
-
-    //       <input placeholder="Password" type="text"></input>
-    //     </div>
-    //   </div>
-    // </section>
-    <div className="md:flex md:h-screen md:w-screen md:items-center md:justify-center">
-      <div className="h-screen w-screen absolute -z-10 blur-md">
+    <div className="md:flex md:h-screen md:w-screen md:items-center md:justify-center ">
+      <div className="h-screen w-screen absolute -z-10 blur-lg ">
         <Image
           src="/background_login.jpg"
           alt=""
           objectFit="cover"
           layout="fill"
+          className=""
         ></Image>
       </div>
-      <section className="grid grid-cols-1 h-screen w-screen gap-2 md:grid-cols-2 md:size-11/12 md:max-w-6xl md:justify-items-center items-center bg-base-100 ">
-        <div className="grid md:min-w-96 md:max-w-96 px-7">
-          <div className="flex mb-8">
+      <section className="grid grid-cols-1 h-screen w-screen gap-2 md:grid-cols-2 md:size-11/12 md:max-w-6xl md:justify-items-center items-start md:items-center bg-base-100 ">
+        <div className="grid md:min-w-96 md:max-w-96 px-7 pt-28 md:pt-0">
+          <div className="flex mb-8 items-center">
             <Image
               src="/dollar.png"
               alt=""
@@ -106,11 +92,14 @@ export function Login(props: ILoginProps) {
             </a>
           </div>
         </div>
-        <img
-          src="https://media.macphun.com/img/uploads/customer/how-to/608/15542038745ca344e267fb80.28757312.jpg"
-          alt="Sample image"
-          className="object-cover w-full h-full hidden md:block"
-        />
+        <div className="md:w-full md:h-full relative">
+          <Image
+            src="/login_right.jpg"
+            alt=""
+            fill
+            style={{ objectFit: 'cover' }}
+          ></Image>
+        </div>
       </section>
     </div>
   )
