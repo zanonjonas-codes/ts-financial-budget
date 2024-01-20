@@ -7,7 +7,7 @@ import { IoLogoGithub } from 'react-icons/io'
 
 export interface ILoginProps {}
 
-export function Login(props: ILoginProps) {
+export function Login(props: ILoginProps): JSX.Element {
   return (
     <div className="md:flex md:h-screen md:w-screen md:items-center md:justify-center ">
       <div className="h-screen w-screen absolute -z-10 blur-lg ">
@@ -18,7 +18,10 @@ export function Login(props: ILoginProps) {
           style={{ objectFit: 'cover' }}
         ></Image>
       </div>
-      <section className="grid grid-cols-1 h-screen w-screen gap-2 md:grid-cols-2 md:size-11/12 md:max-w-6xl md:justify-items-center items-start md:items-center bg-base-100 ">
+      <section
+        className="grid grid-cols-1 h-screen w-screen gap-2 md:grid-cols-2 md:size-11/12 
+                    md:max-w-6xl md:justify-items-center items-start md:items-center bg-base-100 "
+      >
         <div className="grid md:min-w-96 md:max-w-96 px-7 pt-28 md:pt-0">
           <div className="flex mb-8 items-center">
             <Image
@@ -64,12 +67,12 @@ export function Login(props: ILoginProps) {
               placeholder="Email"
               type="text"
               className="input input-primary"
-            ></input>
+            />
             <input
               placeholder="Password"
               type="password"
               className="input input-primary"
-            ></input>
+            />
           </div>
 
           <div className="flex items-center justify-between">
