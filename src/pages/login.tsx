@@ -14,9 +14,8 @@ export function Login(props: ILoginProps) {
         <Image
           src="/background_login.jpg"
           alt=""
-          objectFit="cover"
-          layout="fill"
-          className=""
+          fill
+          style={{ objectFit: 'cover' }}
         ></Image>
       </div>
       <section className="grid grid-cols-1 h-screen w-screen gap-2 md:grid-cols-2 md:size-11/12 md:max-w-6xl md:justify-items-center items-start md:items-center bg-base-100 ">
