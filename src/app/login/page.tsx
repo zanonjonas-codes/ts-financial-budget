@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { FcGoogle } from 'react-icons/fc'
 import { IoLogoGithub } from 'react-icons/io'
 import { signIn } from 'next-auth/react'
+import { Logo } from '../_components/Logo'
 
 export interface ILoginProps {}
 
@@ -27,7 +28,7 @@ export default function Login(props: ILoginProps): JSX.Element {
                     md:max-w-6xl md:justify-items-center items-start md:items-center bg-base-100 "
       >
         <div className="grid md:min-w-96 md:max-w-96 px-7 pt-28 md:pt-0">
-          <div className="flex mb-8 items-center">
+          {/* <div className="flex mb-8 items-center">
             <Image
               src="/dollar.png"
               alt=""
@@ -38,7 +39,8 @@ export default function Login(props: ILoginProps): JSX.Element {
             <span className="ml-3 font-mono text-sky-700 font-bold">
               Financial Budget
             </span>
-          </div>
+          </div> */}
+          <Logo className="mb-8" />
 
           <span className="text-lg font-extrabold">Log in to your account</span>
 

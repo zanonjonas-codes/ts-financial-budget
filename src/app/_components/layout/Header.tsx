@@ -16,7 +16,7 @@ export function Header(props: IHeaderProps): JSX.Element {
     <div className={twMerge(localClassName, props.className)}>
       <header className="flex py-1 px-2 justify-between items-center">
         <MenuButton />
-        <Logo className="" />
+        <Logo className="md:ml-2" />
         <Avatar className="md:ml-auto" />
       </header>
     </div>
