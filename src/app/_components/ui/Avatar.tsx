@@ -1,12 +1,17 @@
 import Image from 'next/image'
 import * as React from 'react'
 import { twMerge } from 'tailwind-merge'
+import { getServerSession } from 'next-auth'
 
 export interface IAvatarProps {
   className: string
 }
 
 const localClassName = 'avatar'
+
+const serverSession = () => {
+  getServerSession()
+}
 
 export function Avatar(props: IAvatarProps): JSX.Element {
   return (

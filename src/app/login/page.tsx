@@ -3,12 +3,12 @@ import * as React from 'react'
 import Image from 'next/image'
 import { FcGoogle } from 'react-icons/fc'
 import { IoLogoGithub } from 'react-icons/io'
-import { signIn } from '@/app/_actions/auth-actions'
+import { signIn } from 'next-auth/react'
 
 export interface ILoginProps {}
 
 const onClickGithubHandler = async (): Promise<void> => {
-  await signIn({ provider: 'github' })
+  await signIn('github')
 }
 
 export default function Login(props: ILoginProps): JSX.Element {
