@@ -3,7 +3,7 @@ import * as React from 'react'
 import Image from 'next/image'
 import { FcGoogle } from 'react-icons/fc'
 import { IoLogoGithub } from 'react-icons/io'
-import { signIn } from '@/app/actions/auth-actions'
+import { signIn } from '@/app/_actions/auth-actions'
 
 export interface ILoginProps {}
 

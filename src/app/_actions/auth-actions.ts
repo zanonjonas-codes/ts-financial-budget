@@ -1,5 +1,5 @@
 'use server'
-import { signIn as signInLib, signOut as signOutLib } from '@/app/libs/auth'
+import { signIn as signInLib, signOut as signOutLib } from '@/app/_libs/auth'
 
 export type SignInInput = {
   provider: string
