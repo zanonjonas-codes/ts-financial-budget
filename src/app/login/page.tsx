@@ -20,7 +20,7 @@ export default function Login(props: ILoginProps): JSX.Element {
           alt=""
           fill
           style={{ objectFit: 'cover' }}
-        ></Image>
+        />
       </div>
       <section
         className="grid grid-cols-1 h-screen w-screen gap-2 md:grid-cols-2 md:size-11/12 
@@ -109,7 +109,7 @@ export default function Login(props: ILoginProps): JSX.Element {
             alt=""
             fill
             style={{ objectFit: 'cover' }}
-          ></Image>
+          />
         </div>
       </section>
     </div>
