@@ -1,16 +1,20 @@
+import { Header } from '@/components/layout/Header'
+import { MainContent } from '@/components/layout/MainContent'
+// import { Menu } from '@/components/Menu'
+import { Footer } from '@/components/layout/Footer'
+
 export default function Home(): JSX.Element {
   return (
     <main>
-      <div className="grid grid-cols-1 gap-2 p-3 justify-items-center">
-        <div>
-          <input className="rounded-md h-10" />
+      <div className="min-h-screen flex flex-col">
+        <Header />
+        <div className="flex-1 flex flex-col">
+          {/* <Menu>The Menu</Menu> */}
+          <MainContent className="flex-1 bg-indigo-100">
+            The Main Content
+          </MainContent>
         </div>
-        <div>
-          <input className="rounded-md h-10" />
-        </div>
-        <div>
-          <button className="btn btn-primary rounded-md h-10">Login</button>
-        </div>
+        <Footer className="">The Footer</Footer>
       </div>
     </main>
   )

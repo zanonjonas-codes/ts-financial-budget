@@ -4,8 +4,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'tecdn.b-cdn.net',
-
+        hostname: 'daisyui.com',
       },
     ],
   },

@@ -1,13 +1,17 @@
-/* eslint-disable @next/next/no-img-element */
+'use client'
 import * as React from 'react'
-import '../app/globals.css'
 import Image from 'next/image'
 import { FcGoogle } from 'react-icons/fc'
 import { IoLogoGithub } from 'react-icons/io'
+import { signIn } from '@/app/actions/auth-actions'
 
 export interface ILoginProps {}
 
-export function Login(props: ILoginProps): JSX.Element {
+const onClickGithubHandler = async (): Promise<void> => {
+  await signIn({ provider: 'github' })
+}
+
+export default function Login(props: ILoginProps): JSX.Element {
   return (
     <div className="md:flex md:h-screen md:w-screen md:items-center md:justify-center ">
       <div className="h-screen w-screen absolute -z-10 blur-lg ">
@@ -48,7 +52,12 @@ export function Login(props: ILoginProps): JSX.Element {
               Google
             </button>
 
-            <button className="btn btn-outline">
+            <button
+              className="btn btn-outline"
+              onClick={() => {
+                onClickGithubHandler()
+              }}
+            >
               <IoLogoGithub className="size-6" />
               Github
             </button>
@@ -106,5 +115,3 @@ export function Login(props: ILoginProps): JSX.Element {
     </div>
   )
 }
-
-export default Login
