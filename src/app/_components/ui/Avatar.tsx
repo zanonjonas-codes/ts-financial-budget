@@ -6,11 +6,11 @@ import React from 'react'
 import { twMerge } from 'tailwind-merge'
 
 export interface IAvatarProps {
-  className: string
-  children: React.ReactNode
+  className?: string
+  children?: React.ReactNode
 }
 
-const localClassName = 'avatar'
+const localClassName = 'avatar flex items-center'
 
 export async function Avatar(props: IAvatarProps): Promise<JSX.Element> {
   const user = await getCurrentUser()
@@ -23,10 +23,8 @@ export async function Avatar(props: IAvatarProps): Promise<JSX.Element> {
 
   return (
     <div className={twMerge(localClassName, props.className)}>
-      <div className="w-12 rounded-full overflow-hidden relative">
-        <div>
-          <Image alt="" object-fit="cover" fill src={image} />
-        </div>
+      <div className="rounded-full overflow-hidden relative w-12 h-12">
+        <Image alt="" object-fit="cover" fill src={image} />
       </div>
     </div>
   )

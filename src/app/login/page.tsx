@@ -8,11 +8,11 @@ import { Logo } from '../_components/Logo'
 
 export interface ILoginProps {}
 
-const onClickGithubHandler = async (): Promise<void> => {
-  await signIn('github')
-}
-
 export default function Login(props: ILoginProps): JSX.Element {
+  const onClickGithubHandler = async (): Promise<void> => {
+    await signIn('github')
+  }
+
   return (
     <div className="md:flex md:h-screen md:w-screen md:items-center md:justify-center ">
       <div className="h-screen w-screen absolute -z-10 blur-lg ">

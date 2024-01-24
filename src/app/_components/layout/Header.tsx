@@ -1,8 +1,9 @@
 import * as React from 'react'
 import { twMerge } from 'tailwind-merge'
 import { Logo } from '../Logo'
-import { Avatar } from '../ui/Avatar'
+import { AvatarDropdown } from '../ui/AvatarDropdown'
 import { MenuButton } from '../ui/MenuButton'
+import { Avatar } from '../ui/Avatar'
 
 export interface IHeaderProps {
   children?: React.ReactNode
@@ -17,7 +18,9 @@ export function Header(props: IHeaderProps): JSX.Element {
       <header className="flex py-1 px-2 justify-between items-center">
         <MenuButton />
         <Logo className="md:ml-2" />
-        <Avatar className="md:ml-auto" />
+        <AvatarDropdown className="md:ml-auto">
+          <Avatar />
+        </AvatarDropdown>
       </header>
     </div>
   )
