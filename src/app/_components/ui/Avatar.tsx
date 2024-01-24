@@ -1,29 +1,31 @@
+import { authOptions } from '@/app/_libs/auth'
+import { getCurrentUser } from '@/app/_libs/session'
 import Image from 'next/image'
-import * as React from 'react'
+import { redirect } from 'next/navigation'
+import React from 'react'
 import { twMerge } from 'tailwind-merge'
-import { getServerSession } from 'next-auth'
 
 export interface IAvatarProps {
   className: string
+  children: React.ReactNode
 }
 
 const localClassName = 'avatar'
 
-const serverSession = () => {
-  getServerSession()
-}
+export async function Avatar(props: IAvatarProps): Promise<JSX.Element> {
+  const user = await getCurrentUser()
 
-export function Avatar(props: IAvatarProps): JSX.Element {
+  if (!user) {
+    redirect(authOptions?.pages?.signIn || '/login')
+  }
+
+  const image = user.image as string
+
   return (
     <div className={twMerge(localClassName, props.className)}>
       <div className="w-12 rounded-full overflow-hidden relative">
         <div>
-          <Image
-            alt=""
-            object-fit="cover"
-            fill
-            src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-          />
+          <Image alt="" object-fit="cover" fill src={image} />
         </div>
       </div>
     </div>
