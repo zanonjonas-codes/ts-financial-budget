@@ -1,18 +1,13 @@
-'use client'
 import * as React from 'react'
 import Image from 'next/image'
 import { FcGoogle } from 'react-icons/fc'
 import { IoLogoGithub } from 'react-icons/io'
-import { signIn } from 'next-auth/react'
 import { Logo } from '../_components/Logo'
+import { ProviderLoginButton } from '../_components/ui/ProviderLoginButton'
 
 export interface ILoginProps {}
 
 export default function Login(props: ILoginProps): JSX.Element {
-  const onClickGithubHandler = async (): Promise<void> => {
-    await signIn('github')
-  }
-
   return (
     <div className="md:flex md:h-screen md:w-screen md:items-center md:justify-center ">
       <div className="h-screen w-screen absolute -z-10 blur-lg ">
@@ -28,18 +23,6 @@ export default function Login(props: ILoginProps): JSX.Element {
                     md:max-w-6xl md:justify-items-center items-start md:items-center bg-base-100 "
       >
         <div className="grid md:min-w-96 md:max-w-96 px-7 pt-28 md:pt-0">
-          {/* <div className="flex mb-8 items-center">
-            <Image
-              src="/dollar.png"
-              alt=""
-              className=""
-              width={30}
-              height={30}
-            />
-            <span className="ml-3 font-mono text-sky-700 font-bold">
-              Financial Budget
-            </span>
-          </div> */}
           <Logo className="mb-8" />
 
           <span className="text-lg font-extrabold">Log in to your account</span>
@@ -49,20 +32,13 @@ export default function Login(props: ILoginProps): JSX.Element {
           </span>
 
           <div className="grid grid-cols-2 gap-x-2 mb-6">
-            <button className="btn btn-outline">
+            <ProviderLoginButton provider="google" label="Google">
               <FcGoogle className="size-6" />
-              Google
-            </button>
+            </ProviderLoginButton>
 
-            <button
-              className="btn btn-outline"
-              onClick={() => {
-                onClickGithubHandler()
-              }}
-            >
+            <ProviderLoginButton provider="github" label="Github">
               <IoLogoGithub className="size-6" />
-              Github
-            </button>
+            </ProviderLoginButton>
           </div>
 
           <div className="flex items-center justify-center mb-3 flex-no">
