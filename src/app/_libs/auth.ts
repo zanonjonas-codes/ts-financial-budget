@@ -1,5 +1,6 @@
 import NextAuth, { AuthOptions } from 'next-auth'
 import GithubProvider from 'next-auth/providers/github'
+import GoogleProvider from 'next-auth/providers/google'
 
 export const config: AuthOptions = {
   theme: {
@@ -9,6 +10,10 @@ export const config: AuthOptions = {
     GithubProvider({
       clientId: process.env.GITHUB_ID!,
       clientSecret: process.env.GITHUB_SECRET!,
+    }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
   ],
   callbacks: {
@@ -20,7 +25,8 @@ export const config: AuthOptions = {
     //   return true
     // },
     async redirect(params: { url: string; baseUrl: string }) {
-      if (params.url === 'http://pc-jonas:3000/login') return params.baseUrl
+      if (params.url === 'http://finbud.servebeer.com:3000/login')
+        return params.baseUrl
       return params.baseUrl
     },
   },
