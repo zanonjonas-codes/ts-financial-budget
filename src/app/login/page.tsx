@@ -2,8 +2,9 @@ import * as React from 'react'
 import Image from 'next/image'
 import { FcGoogle } from 'react-icons/fc'
 import { IoLogoGithub } from 'react-icons/io'
-import { Logo } from '../_components/Logo'
-import { ProviderLoginButton } from '../_components/ui/ProviderLoginButton'
+import { Logo } from '../../components/Logo'
+import { ProviderLoginButton } from '../../components/ProviderLoginButton'
+import { CreateAccountLink } from '@/components/ui/CreateAccountLink'
 
 export interface ILoginProps {}
 
@@ -76,9 +77,7 @@ export default function Login(props: ILoginProps): JSX.Element {
 
           <div className="flex items-center justify-center">
             <span className="text-xs">Don&apos;t have an account?</span>
-            <a className="link link-primary text-xs link-hover ml-1">
-              Create an account
-            </a>
+            <CreateAccountLink />
           </div>
         </div>
         <div className="md:w-full md:h-full relative">

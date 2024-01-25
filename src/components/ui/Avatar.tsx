@@ -1,5 +1,5 @@
-import { authOptions } from '@/app/_libs/auth'
-import { getCurrentUser } from '@/app/_libs/session'
+import { authOptions } from '@/libs/auth'
+import { getCurrentUser } from '@/libs/session'
 import Image from 'next/image'
 import { redirect } from 'next/navigation'
 import React from 'react'

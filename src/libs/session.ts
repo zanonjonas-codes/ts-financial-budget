@@ -1,6 +1,6 @@
 import { getServerSession } from 'next-auth/next'
 
-import { authOptions } from '@/app/_libs/auth'
+import { authOptions } from '@/libs/auth'
 import { DefaultSession } from 'next-auth'
 
 export async function getCurrentUser(): Promise<DefaultSession['user']> {

@@ -1,3 +1,3 @@
-import { nextAuth } from '@/app/_libs/auth'
+import { nextAuth } from '@/libs/auth'
 
 export { nextAuth as GET, nextAuth as POST }

@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { twMerge } from 'tailwind-merge'
 import { Logo } from '../Logo'
-import { AvatarDropdown } from '../ui/AvatarDropdown'
+import { AvatarDropdown } from '../AvatarDropdown'
 import { MenuButton } from '../ui/MenuButton'
 import { Avatar } from '../ui/Avatar'
 

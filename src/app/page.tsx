@@ -1,7 +1,7 @@
-import { Header } from '@/app/_components/layout/Header'
-import { MainContent } from '@/app/_components/layout/MainContent'
+import { Header } from '@/components/layout/Header'
+import { MainContent } from '@/components/layout/MainContent'
 // import { Menu } from '@/components/Menu'
-import { Footer } from '@/app/_components/layout/Footer'
+import { Footer } from '@/components/layout/Footer'
 
 export default function Home(): JSX.Element {
   return (
