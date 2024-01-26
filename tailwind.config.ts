@@ -6,7 +6,15 @@ const config: Config = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   daisyui: {
-    themes: ['cupcake'],
+    themes: [
+      {
+        cupcake: {
+          // eslint-disable-next-line @typescript-eslint/no-var-requires
+          ...require('daisyui/src/theming/themes')['cupcake'],
+          'neutral-content': '#A9AFB9',
+        },
+      },
+    ],
   },
 
   plugins: [require('daisyui')],

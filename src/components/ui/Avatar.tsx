@@ -16,7 +16,7 @@ export async function Avatar(props: IAvatarProps): Promise<JSX.Element> {
   const user = await getCurrentUser()
 
   if (!user) {
-    redirect(authOptions?.pages?.signIn || '/login')
+    redirect(authOptions?.pages?.signIn || '/onboarding/signin')
   }
 
   const image = user.image as string

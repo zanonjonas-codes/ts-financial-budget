@@ -25,7 +25,7 @@ export const config: AuthOptions = {
     //   return true
     // },
     async redirect(params: { url: string; baseUrl: string }) {
-      if (params.url === 'http://finbud.servebeer.com:3000/login')
+      if (params.url === 'http://finbud.servebeer.com:3000/onboarding/signin')
         return params.baseUrl
       return params.baseUrl
     },
