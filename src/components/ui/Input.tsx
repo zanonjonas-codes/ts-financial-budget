@@ -1,33 +1,30 @@
-import {
-  FieldValues,
-  UseFormRegister,
-  UseFormRegisterReturn,
-} from 'react-hook-form'
+import * as React from 'react'
 import { twMerge } from 'tailwind-merge'
 
-export interface IInputTextProps<T extends FieldValues> {
-  className?: string
-  password?: boolean
-  label: string
-  placeholder?: string
-  formRegister?: UseFormRegister<T>
-  id?: string
+// Redecalare forwardRef
+declare module 'react' {
+  function forwardRef<T, P = object>(
+    render: (props: P, ref: React.Ref<T>) => React.ReactElement | null
+  ): (props: P & React.RefAttributes<T>) => React.ReactElement | null
 }
 
-export function InputText<T extends FieldValues>(
-  props: IInputTextProps<T>
+export interface InputProps extends React.ComponentPropsWithoutRef<'input'> {
+  className?: string
+  label: string
+}
+
+function InputInner(
+  props: InputProps,
+  ref: React.ForwardedRef<HTMLInputElement>
 ): JSX.Element {
   const localClassName = 'relative'
 
-  const type = props.password ? 'password' : 'text'
-  const spreadFormRegister = (): UseFormRegisterReturn<string> | undefined => {
-    if (props.formRegister && props.id) return props.formRegister(props.id)
-  }
+  const { className, label, ...rest } = props
 
   return (
-    <div className={twMerge(localClassName, props.className)}>
+    <div className={twMerge(localClassName, className)}>
       <input
-        type={type}
+        type={props.type}
         id={props.id}
         className={twMerge(
           `block px-4 pb-2.5 pt-4 w-full  
@@ -36,7 +33,8 @@ export function InputText<T extends FieldValues>(
         focus:ring-0 focus:border-blue-600 peer`
         )}
         placeholder=""
-        {...spreadFormRegister()}
+        ref={ref}
+        {...rest}
       />
       <label
         htmlFor={props.id}
@@ -48,8 +46,10 @@ export function InputText<T extends FieldValues>(
            peer-focus:top-1 peer-focus:scale-75 peer-focus:-translate-y-4 
            rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-6 start-2 select-none"
       >
-        {props.label}
+        {label}
       </label>
     </div>
   )
 }
+
+export const Input = React.forwardRef(InputInner)

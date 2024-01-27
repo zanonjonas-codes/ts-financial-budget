@@ -1,7 +1,7 @@
 'use client'
 
 import { Logo } from '@/components/Logo'
-import { InputText } from '@/components/ui/InputText'
+import { Input } from '@/components/ui/Input'
 import { PrimaryLink } from '@/components/ui/PrimaryLink'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
@@ -10,19 +10,20 @@ import * as z from 'zod'
 export interface ISignUpProps {}
 
 export default function SignUp(props: ISignUpProps): JSX.Element {
-  const signUpSchema = z.object({
-    firstName: z.string().min(2, 'min firstName').max(80),
-    lastName: z.string().min(2, 'min LastName').max(80),
-    email: z.string().email(),
-    password: z.string().min(4),
-    confirmPassword: z.string().min(4),
-  })
-  // .refine((data) => data.password === data.confirmPassword, {
-  //   message: "Password don't match",
-  //   path: ['confirmPassword'],
-  // })
+  const signUpSchema = z
+    .object({
+      firstName: z.string().min(2).max(80),
+      lastName: z.string().min(2).max(80),
+      email: z.string().email(),
+      password: z.string().min(4),
+      confirmPassword: z.string().min(4),
+    })
+    .refine((data) => data.password === data.confirmPassword, {
+      message: "Password don't match",
+      path: ['confirmPassword'],
+    })
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: unknown): void => {
     console.log(data)
   }
 
@@ -32,7 +33,6 @@ export default function SignUp(props: ISignUpProps): JSX.Element {
     handleSubmit,
     formState: { errors },
     register,
-    getValues,
     watch,
   } = useForm<FormType>({
     resolver: zodResolver(signUpSchema),
@@ -46,16 +46,12 @@ export default function SignUp(props: ISignUpProps): JSX.Element {
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="grid grid-cols-2 items-center justify-center gap-5 mb-3">
-          <InputText
-            label="First name"
-            placeholder="First name"
-            id="firstName"
-            formRegister={register}
-          />
+          <Input label="First name" id="firstName" {...register('firstName')} />
+
           <div style={{ color: 'red' }} className="z-40">
             {watchAllFields ? (
               <>
-                <label>Watched Fields:</label>name:{' '}
+                <label>Watched Fields:</label>
                 {JSON.stringify(watchAllFields)}
               </>
             ) : (
@@ -63,28 +59,17 @@ export default function SignUp(props: ISignUpProps): JSX.Element {
             )}
           </div>
 
-          <InputText label="Last name" id="lastName" />
+          {/* <Input label="Last name" id="lastName" />
           <div style={{ color: 'red' }}>{errors?.lastName?.message}</div>
-          <InputText
-            className="col-span-1"
-            label="Email"
-            placeholder="Email"
-            id="email"
-          />
+          <Input className="col-span-1" label="Email" id="email" />
           <div style={{ color: 'red' }}>{errors?.email?.message}</div>
-          <InputText
-            label="Password"
-            password
-            placeholder="Password"
-            id="password"
-          />
+          <Input label="Password" type="password" id="password" />
           <div style={{ color: 'red' }}>{errors?.password?.message}</div>
-          <InputText
+          <Input
             label="Confirm password"
-            password
-            placeholder="Confirm password"
+            type="password"
             id="confirmPassword"
-          />
+          /> */}
           <div style={{ color: 'red' }}>{errors?.confirmPassword?.message}</div>
           <button className="btn btn-primary col-span-2 mt-3">Create</button>
         </div>
