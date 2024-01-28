@@ -1,12 +1,34 @@
+'use client'
+
 import { PrimaryLink } from '@/components/ui/PrimaryLink'
 import { FcGoogle } from 'react-icons/fc'
 import { IoLogoGithub } from 'react-icons/io'
 import { Logo } from '../../../components/Logo'
 import { ProviderLoginButton } from '../../../components/ProviderLoginButton'
+import { FormInput } from '@/components/ui/FormInput'
+import { FormProvider, useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { z } from '@/libs/zodInstance'
 
 export interface ILoginProps {}
 
 export default function Login(props: ILoginProps): JSX.Element {
+  const signInSchema = z.object({
+    Email: z.string().email().min(1),
+    Password: z.string().min(1),
+  })
+
+  type FormType = Zod.infer<typeof signInSchema>
+
+  const methods = useForm<FormType>({
+    resolver: zodResolver(signInSchema),
+    mode: 'onChange',
+  })
+
+  const onSubmit = (data: unknown): void => {
+    console.log(data)
+  }
+
   return (
     <div className="grid md:min-w-96 md:max-w-96 px-7 pt-28 md:pt-0">
       <Logo className="mb-8" />
@@ -36,16 +58,14 @@ export default function Login(props: ILoginProps): JSX.Element {
       </div>
 
       <div className="grid grid-cols-1 items-center justify-center gap-y-3">
-        <input
-          placeholder="Email"
-          type="text"
-          className="input input-primary"
-        />
-        <input
-          placeholder="Password"
-          type="password"
-          className="input input-primary"
-        />
+        <FormProvider {...methods}>
+          <form onSubmit={methods.handleSubmit(onSubmit)}>
+            <div className="grid gap-8  mb-3">
+              <FormInput label="Email" name="Email" type="text" />
+              <FormInput label="Password" type="password" name="Password" />
+            </div>
+          </form>
+        </FormProvider>
       </div>
 
       <div className="flex items-center justify-between">

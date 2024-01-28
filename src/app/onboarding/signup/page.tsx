@@ -1,79 +1,63 @@
 'use client'
 
 import { Logo } from '@/components/Logo'
-import { Input } from '@/components/ui/Input'
+import { FormInput } from '@/components/ui/FormInput'
 import { PrimaryLink } from '@/components/ui/PrimaryLink'
+import { z } from '@/libs/zodInstance'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
-import * as z from 'zod'
+import { FormProvider, useForm } from 'react-hook-form'
 
 export interface ISignUpProps {}
 
 export default function SignUp(props: ISignUpProps): JSX.Element {
   const signUpSchema = z
     .object({
-      firstName: z.string().min(2).max(80),
-      lastName: z.string().min(2).max(80),
-      email: z.string().email(),
-      password: z.string().min(4),
-      confirmPassword: z.string().min(4),
+      'First name': z.string().min(2).max(80),
+      'Last name': z.string().min(2).max(80),
+      Email: z.string().email(),
+      Password: z.string().min(4),
+      'Confirm password': z.string(),
     })
-    .refine((data) => data.password === data.confirmPassword, {
+    .refine((data) => data.Password === data['Confirm password'], {
       message: "Password don't match",
-      path: ['confirmPassword'],
+      path: ['Confirm password'],
     })
 
   const onSubmit = (data: unknown): void => {
     console.log(data)
   }
 
-  type FormType = z.infer<typeof signUpSchema>
+  type FormType = Zod.infer<typeof signUpSchema>
 
-  const {
-    handleSubmit,
-    formState: { errors },
-    register,
-    watch,
-  } = useForm<FormType>({
+  const methods = useForm<FormType>({
     resolver: zodResolver(signUpSchema),
+    mode: 'onChange',
   })
 
-  const watchAllFields = watch()
-
   return (
-    <div className="grid md:w-[480px] px-7 pt-28 md:pt-0">
+    <div className="grid md:min-w-96 md:max-w-96 px-7 pt-28 md:pt-0 items-center">
       <Logo className="mb-8" />
+      <span className="text-lg font-extrabold">Create your account</span>
 
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="grid grid-cols-2 items-center justify-center gap-5 mb-3">
-          <Input label="First name" id="firstName" {...register('firstName')} />
+      <span className="text-xs mb-4">Welcome! Fill out the form bellow</span>
 
-          <div style={{ color: 'red' }} className="z-40">
-            {watchAllFields ? (
-              <>
-                <label>Watched Fields:</label>
-                {JSON.stringify(watchAllFields)}
-              </>
-            ) : (
-              ''
-            )}
+      <FormProvider {...methods}>
+        <form onSubmit={methods.handleSubmit(onSubmit)}>
+          <div className="grid gap-8  mb-3">
+            <FormInput label="First name" name="First name" />
+            <FormInput label="Last name" name="Last name" />
+            <FormInput className="" label="Email" name="Email" />
+            <FormInput label="Password" type="password" name="Password" />
+            <FormInput
+              label="Confirm password"
+              type="password"
+              name="Confirm password"
+            />
+
+            <button className="btn btn-primary mt-3">Create</button>
           </div>
-
-          {/* <Input label="Last name" id="lastName" />
-          <div style={{ color: 'red' }}>{errors?.lastName?.message}</div>
-          <Input className="col-span-1" label="Email" id="email" />
-          <div style={{ color: 'red' }}>{errors?.email?.message}</div>
-          <Input label="Password" type="password" id="password" />
-          <div style={{ color: 'red' }}>{errors?.password?.message}</div>
-          <Input
-            label="Confirm password"
-            type="password"
-            id="confirmPassword"
-          /> */}
-          <div style={{ color: 'red' }}>{errors?.confirmPassword?.message}</div>
-          <button className="btn btn-primary col-span-2 mt-3">Create</button>
-        </div>
-      </form>
+        </form>
+      </FormProvider>
 
       <div className="flex justify-center">
         <span className="text-xs">Already have an account?</span>
