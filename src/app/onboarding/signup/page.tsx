@@ -1,11 +1,14 @@
 'use client'
 
 import { Logo } from '@/components/Logo'
+import { ProviderLoginButton } from '@/components/ProviderLoginButton'
 import { FormInput } from '@/components/ui/FormInput'
 import { PrimaryLink } from '@/components/ui/PrimaryLink'
 import { z } from '@/libs/zodInstance'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { FormProvider, useForm } from 'react-hook-form'
+import { FcGoogle } from 'react-icons/fc'
+import { IoLogoGithub } from 'react-icons/io'
 
 export interface ISignUpProps {}
 
@@ -38,8 +41,25 @@ export default function SignUp(props: ISignUpProps): JSX.Element {
     <div className="grid md:min-w-96 md:max-w-96 px-7 pt-28 md:pt-0 items-center">
       <Logo className="mb-8" />
       <span className="text-lg font-extrabold">Create your account</span>
+      <span className="text-xs mb-4">Use to create your account:</span>
 
-      <span className="text-xs mb-4">Welcome! Fill out the form bellow</span>
+      <div className="grid grid-cols-2 gap-x-2 mb-6">
+        <ProviderLoginButton provider="google" label="Google">
+          <FcGoogle className="size-6" />
+        </ProviderLoginButton>
+
+        <ProviderLoginButton provider="github" label="Github">
+          <IoLogoGithub className="size-6" />
+        </ProviderLoginButton>
+      </div>
+
+      <div className="flex items-center justify-center mb-3 flex-no">
+        <hr className="w-full h-px border-0 dark:bg-primary " />
+        <div className="text-xs px-3 bg-base-100 whitespace-nowrap">
+          or continue with email
+        </div>
+        <hr className="w-full h-px border-0 dark:bg-primary " />
+      </div>
 
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)}>
