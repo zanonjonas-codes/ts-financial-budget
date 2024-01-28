@@ -1,11 +1,13 @@
 'use client'
 
+import { createUser } from '@/actions/UserActions'
 import { Logo } from '@/components/Logo'
 import { OauthButton } from '@/components/OauthButton'
 import { FormInput } from '@/components/ui/FormInput'
 import { PrimaryLink } from '@/components/ui/PrimaryLink'
 import { z } from '@/libs/zodInstance'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { Prisma } from '@prisma/client'
 import { FormProvider, useForm } from 'react-hook-form'
 import { FcGoogle } from 'react-icons/fc'
 import { IoLogoGithub } from 'react-icons/io'
@@ -25,12 +27,18 @@ export default function SignUp(props: ISignUpProps): JSX.Element {
       message: "Password don't match",
       path: ['Confirm password'],
     })
-
-  const onSubmit = (data: unknown): void => {
-    console.log(data)
-  }
-
   type FormType = Zod.infer<typeof signUpSchema>
+
+  const onSubmit = async (data: FormType): Promise<void> => {
+    const user: Prisma.UserCreateInput = {
+      firstName: data['First name'],
+      lastName: data['Last name'],
+      email: data.Email,
+      password: data.Password,
+    }
+
+    await createUser(user)
+  }
 
   const methods = useForm<FormType>({
     resolver: zodResolver(signUpSchema),
