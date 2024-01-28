@@ -11,7 +11,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from '@/libs/zodInstance'
 
 export interface ILoginProps {}
-
+// TODO: Extrair form para comp filho
 export default function Login(props: ILoginProps): JSX.Element {
   const signInSchema = z.object({
     Email: z.string().email().min(1),

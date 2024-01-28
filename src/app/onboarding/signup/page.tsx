@@ -13,7 +13,7 @@ import { FcGoogle } from 'react-icons/fc'
 import { IoLogoGithub } from 'react-icons/io'
 
 export interface ISignUpProps {}
-
+// TODO: Extrair form para comp filho
 export default function SignUp(props: ISignUpProps): JSX.Element {
   const signUpSchema = z
     .object({
