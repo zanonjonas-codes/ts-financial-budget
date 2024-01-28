@@ -1,7 +1,7 @@
 'use client'
 
 import { Logo } from '@/components/Logo'
-import { ProviderLoginButton } from '@/components/ProviderLoginButton'
+import { OauthButton } from '@/components/OauthButton'
 import { FormInput } from '@/components/ui/FormInput'
 import { PrimaryLink } from '@/components/ui/PrimaryLink'
 import { z } from '@/libs/zodInstance'
@@ -44,13 +44,13 @@ export default function SignUp(props: ISignUpProps): JSX.Element {
       <span className="text-xs mb-4">Use to create your account:</span>
 
       <div className="grid grid-cols-2 gap-x-2 mb-6">
-        <ProviderLoginButton provider="google" label="Google">
+        <OauthButton provider="google" label="Google">
           <FcGoogle className="size-6" />
-        </ProviderLoginButton>
+        </OauthButton>
 
-        <ProviderLoginButton provider="github" label="Github">
+        <OauthButton provider="github" label="Github">
           <IoLogoGithub className="size-6" />
-        </ProviderLoginButton>
+        </OauthButton>
       </div>
 
       <div className="flex items-center justify-center mb-3 flex-no">

@@ -3,16 +3,14 @@ import { signIn } from 'next-auth/react'
 import * as React from 'react'
 import { twMerge } from 'tailwind-merge'
 
-export interface IProviderLoginButtonProps {
+export interface OauthButtonProps {
   provider: string
   label: string
   children: React.ReactNode
   className?: string
 }
 
-export function ProviderLoginButton(
-  props: IProviderLoginButtonProps
-): JSX.Element {
+export function OauthButton(props: OauthButtonProps): JSX.Element {
   const localClassName = 'btn btn-outline'
 
   return (

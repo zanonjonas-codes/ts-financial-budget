@@ -4,7 +4,7 @@ import { PrimaryLink } from '@/components/ui/PrimaryLink'
 import { FcGoogle } from 'react-icons/fc'
 import { IoLogoGithub } from 'react-icons/io'
 import { Logo } from '../../../components/Logo'
-import { ProviderLoginButton } from '../../../components/ProviderLoginButton'
+import { OauthButton } from '@/components/OauthButton'
 import { FormInput } from '@/components/ui/FormInput'
 import { FormProvider, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -40,13 +40,13 @@ export default function Login(props: ILoginProps): JSX.Element {
       </span>
 
       <div className="grid grid-cols-2 gap-x-2 mb-6">
-        <ProviderLoginButton provider="google" label="Google">
+        <OauthButton provider="google" label="Google">
           <FcGoogle className="size-6" />
-        </ProviderLoginButton>
+        </OauthButton>
 
-        <ProviderLoginButton provider="github" label="Github">
+        <OauthButton provider="github" label="Github">
           <IoLogoGithub className="size-6" />
-        </ProviderLoginButton>
+        </OauthButton>
       </div>
 
       <div className="flex items-center justify-center mb-3 flex-no">
