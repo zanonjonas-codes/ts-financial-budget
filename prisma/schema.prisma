@@ -9,16 +9,16 @@ datasource db {
 
 model OauthProvider {
   id           Int    @id @default(autoincrement())
-  providerName String
+  providerName String @unique(map: "OauthProvider_providerName")
   User         User[]
 }
 
 model User {
-  id             Int            @id @default(autoincrement())
-  firstName      String
-  lastName       String
-  email          String
-  password       String
-  oathProviderId Int?
-  OauthProvider  OauthProvider? @relation(fields: [oathProviderId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  id              Int            @id @default(autoincrement())
+  firstName       String
+  lastName        String
+  email           String         @unique(map: "User_email")
+  password        String
+  oauthProviderId Int?
+  OauthProvider   OauthProvider? @relation(fields: [oauthProviderId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "User_oathProviderId_fkey")
 }

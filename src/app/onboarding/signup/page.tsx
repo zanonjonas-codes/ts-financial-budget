@@ -5,12 +5,15 @@ import { Logo } from '@/components/Logo'
 import { OauthButton } from '@/components/OauthButton'
 import { FormInput } from '@/components/ui/FormInput'
 import { PrimaryLink } from '@/components/ui/PrimaryLink'
+import { BusinessError } from '@/error/BusinessError'
 import { z } from '@/libs/zodInstance'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Prisma } from '@prisma/client'
 import { FormProvider, useForm } from 'react-hook-form'
 import { FcGoogle } from 'react-icons/fc'
 import { IoLogoGithub } from 'react-icons/io'
+import { useState } from 'react'
+import { Alert } from '@/components/ui/Alert'
 
 export interface ISignUpProps {}
 // TODO: Extrair form para comp filho
@@ -29,6 +32,9 @@ export default function SignUp(props: ISignUpProps): JSX.Element {
     })
   type FormType = Zod.infer<typeof signUpSchema>
 
+  const [showAlert, setShowAlert] = useState(false)
+  const [alertMessage, setAlertMessage] = useState(null)
+
   const onSubmit = async (data: FormType): Promise<void> => {
     const user: Prisma.UserCreateInput = {
       firstName: data['First name'],
@@ -37,7 +43,14 @@ export default function SignUp(props: ISignUpProps): JSX.Element {
       password: data.Password,
     }
 
-    await createUser(user)
+    const response = await createUser(user)
+
+    // TODO: Ta bugado, ta esquisito, ta feio
+    if (response && response.name === 'USER_EMAIL_ALREADY_EXISTS') {
+      console.log(response)
+      setAlertMessage(response.displayMessage)
+      if (!showAlert) setShowAlert(true)
+    }
   }
 
   const methods = useForm<FormType>({
@@ -47,6 +60,14 @@ export default function SignUp(props: ISignUpProps): JSX.Element {
 
   return (
     <div className="grid md:min-w-96 md:max-w-96 px-7 pt-28 md:pt-0 items-center">
+      {/* TODO: Alert furreca */}
+      <Alert
+        $showAlert={showAlert}
+        setShowAlert={setShowAlert}
+        timeout={3000}
+        message={alertMessage}
+      />
+
       <Logo className="mb-8" />
       <span className="text-lg font-extrabold">Create your account</span>
       <span className="text-xs mb-4">Use to create your account:</span>
