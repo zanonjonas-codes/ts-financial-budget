@@ -1,19 +1,16 @@
 'use client'
 
-import { createUser } from '@/actions/UserActions'
+import { createUserEmailPassword } from '@/actions/UserActions'
 import { Logo } from '@/components/Logo'
 import { OauthButton } from '@/components/OauthButton'
 import { FormInput } from '@/components/ui/FormInput'
 import { PrimaryLink } from '@/components/ui/PrimaryLink'
-import { BusinessError } from '@/error/BusinessError'
 import { z } from '@/libs/zodInstance'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Prisma } from '@prisma/client'
 import { FormProvider, useForm } from 'react-hook-form'
 import { FcGoogle } from 'react-icons/fc'
 import { IoLogoGithub } from 'react-icons/io'
-import { useState } from 'react'
-import { Alert } from '@/components/ui/Alert'
 
 export interface ISignUpProps {}
 // TODO: Extrair form para comp filho
@@ -32,8 +29,10 @@ export default function SignUp(props: ISignUpProps): JSX.Element {
     })
   type FormType = Zod.infer<typeof signUpSchema>
 
-  const [showAlert, setShowAlert] = useState(false)
-  const [alertMessage, setAlertMessage] = useState(null)
+  const rhfMethods = useForm<FormType>({
+    resolver: zodResolver(signUpSchema),
+    mode: 'onChange',
+  })
 
   const onSubmit = async (data: FormType): Promise<void> => {
     const user: Prisma.UserCreateInput = {
@@ -43,41 +42,38 @@ export default function SignUp(props: ISignUpProps): JSX.Element {
       password: data.Password,
     }
 
-    const response = await createUser(user)
-
-    // TODO: Ta bugado, ta esquisito, ta feio
-    if (response && response.name === 'USER_EMAIL_ALREADY_EXISTS') {
-      console.log(response)
-      setAlertMessage(response.displayMessage)
-      if (!showAlert) setShowAlert(true)
+    const response = await createUserEmailPassword(user)
+    if (response && response.isError) {
+      if (response.errorName === 'USER_EMAIL_ALREADY_EXISTS') {
+        rhfMethods.setError(
+          'Email',
+          { message: response.displayErrorMessage },
+          { shouldFocus: true }
+        )
+      }
     }
   }
 
-  const methods = useForm<FormType>({
-    resolver: zodResolver(signUpSchema),
-    mode: 'onChange',
-  })
-
   return (
     <div className="grid md:min-w-96 md:max-w-96 px-7 pt-28 md:pt-0 items-center">
-      {/* TODO: Alert furreca */}
-      <Alert
-        $showAlert={showAlert}
-        setShowAlert={setShowAlert}
-        timeout={3000}
-        message={alertMessage}
-      />
-
       <Logo className="mb-8" />
       <span className="text-lg font-extrabold">Create your account</span>
       <span className="text-xs mb-4">Use to create your account:</span>
 
       <div className="grid grid-cols-2 gap-x-2 mb-6">
-        <OauthButton provider="google" label="Google">
+        <OauthButton
+          provider="google"
+          label="Google"
+          callbackUrl="http://finbud.servebeer.com:3000/onboarding/signup/callback"
+        >
           <FcGoogle className="size-6" />
         </OauthButton>
 
-        <OauthButton provider="github" label="Github">
+        <OauthButton
+          provider="github"
+          label="Github"
+          callbackUrl="http://finbud.servebeer.com:3000/onboarding/signup/callback"
+        >
           <IoLogoGithub className="size-6" />
         </OauthButton>
       </div>
@@ -90,8 +86,8 @@ export default function SignUp(props: ISignUpProps): JSX.Element {
         <hr className="w-full h-px border-0 dark:bg-primary " />
       </div>
 
-      <FormProvider {...methods}>
-        <form onSubmit={methods.handleSubmit(onSubmit)}>
+      <FormProvider {...rhfMethods}>
+        <form onSubmit={rhfMethods.handleSubmit(onSubmit)}>
           <div className="grid gap-8  mb-3">
             <FormInput label="First name" name="First name" />
             <FormInput label="Last name" name="Last name" />

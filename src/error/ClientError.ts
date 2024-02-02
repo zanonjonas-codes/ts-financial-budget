@@ -1,30 +1,39 @@
-// Rever isso aqui, tá estranho
+import { ActionResponse } from '@/actions/ActionReponse'
 
-const clientError = {
+export const clientError = {
   USER_EMAIL_ALREADY_EXISTS: {
     displayMessage: 'Email already in use',
+  },
+  USER_ALREADY_REGISTERED_WITH_THIS_OAUTH_PROVIDER: {
+    displayMessage:
+      'User already registered with this outh provider. Signing in...',
+  },
+  USER_ALREADY_REGISTER_WITH_OTHER_AUTH_METHOD: {
+    displayMessage:
+      'User already registered using another authentication method. Signing out...',
   },
 }
 
 export type ClientErrorNames = keyof typeof clientError
 
 export class ClientError {
-  name: ClientErrorNames
+  errorName: ClientErrorNames
   displayMessage: string
 
-  constructor({ name }: { name: ClientErrorNames }) {
-    const displayMessage = clientError[name].displayMessage
+  constructor({ errorName }: { errorName: ClientErrorNames }) {
+    const displayMessage = clientError[errorName].displayMessage
 
-    this.name = name
+    this.errorName = errorName
     this.displayMessage = displayMessage
 
     Object.setPrototypeOf(this, ClientError.prototype)
   }
 
-  toObject(): { name: string; displayMessage: string } {
+  toActionResponse(): ActionResponse {
     return {
-      name: this.name,
-      displayMessage: this.displayMessage,
+      isError: true,
+      errorName: this.errorName,
+      displayErrorMessage: this.displayMessage,
     }
   }
 }

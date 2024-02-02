@@ -9,6 +9,7 @@ import { FormInput } from '@/components/ui/FormInput'
 import { FormProvider, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from '@/libs/zodInstance'
+import { signIn } from 'next-auth/react'
 
 export interface ILoginProps {}
 // TODO: Extrair form para comp filho
@@ -40,11 +41,11 @@ export default function Login(props: ILoginProps): JSX.Element {
       </span>
 
       <div className="grid grid-cols-2 gap-x-2 mb-6">
-        <OauthButton provider="google" label="Google">
+        <OauthButton provider="google" label="Google" callbackUrl="/">
           <FcGoogle className="size-6" />
         </OauthButton>
 
-        <OauthButton provider="github" label="Github">
+        <OauthButton provider="github" label="Github" callbackUrl="/">
           <IoLogoGithub className="size-6" />
         </OauthButton>
       </div>

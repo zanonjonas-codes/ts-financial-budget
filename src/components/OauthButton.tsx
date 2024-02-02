@@ -8,17 +8,23 @@ export interface OauthButtonProps {
   label: string
   children: React.ReactNode
   className?: string
+  callbackUrl?: string
 }
 
 export function OauthButton(props: OauthButtonProps): JSX.Element {
   const localClassName = 'btn btn-outline'
 
+  const onClickHandler = () => {
+    signIn(props.provider, {
+      callbackUrl: `${props.callbackUrl}?provider=${props.provider}`,
+      redirect: true,
+    })
+  }
+
   return (
     <button
       className={twMerge(localClassName, props.className)}
-      onClick={() => {
-        signIn(props.provider)
-      }}
+      onClick={onClickHandler}
     >
       {props.children}
       {props.label}
